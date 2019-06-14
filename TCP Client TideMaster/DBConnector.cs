@@ -2,6 +2,9 @@
 using System.Data.SQLite;
 using System.Windows.Forms;
 using System;
+using System.Data;
+using System.Linq;
+using System.Globalization;
 
 namespace TCP_Client_TideMaster
 {
@@ -69,7 +72,35 @@ namespace TCP_Client_TideMaster
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-         
+        public void Read ()
+        {
+            Connect();
+            try
+            {
+                using (DataTable dataTable = new DataTable())
+                {
+                    string CommandText = "SELECT DATATIME, Level FROM Tide";
+                    SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(CommandText, dbConnection);
+                    dataAdapter.Fill(dataTable);
+                    string exportFilePath = @".\Data\" + DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture) + "_Tide.csv";
+                    StreamWriter FileExportCSV = new StreamWriter(exportFilePath);
+                    using (FileExportCSV)
+                    {
+                        FileExportCSV.WriteLine(string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(csvfile => csvfile.ColumnName)));
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            FileExportCSV.WriteLine(string.Join(",", row.ItemArray));
+                        }
+                    }
+                    dbConnection.Close();
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            MessageBox.Show("Export done");
+        }
         void IDisposable.Dispose()
         {
             dbCommand.Dispose();

@@ -211,5 +211,20 @@ namespace TCP_Client_TideMaster
             Logger(DateTime.Now.ToString() + " Programm close" + Environment.NewLine);
             ActiveForm.Dispose();
         }
+
+        private void ExportDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Calendar calendar = new Calendar();
+            calendar.ShowDialog();
+            string ChooseDay="";
+            //calendar.Dispose();
+            MessageBox.Show(ChooseDay);
+           /* using (DBConnector dbConnector = new DBConnector())
+            {
+               
+                dbConnector.Read();
+                
+            }*/
+        }
     }
 }
