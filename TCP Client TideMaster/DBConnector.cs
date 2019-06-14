@@ -8,7 +8,8 @@ namespace TCP_Client_TideMaster
    
     class DBConnector:IDisposable
     {
-        public static string DbFilePath { get; set; } = "";
+        private static string _dbFilepath = @".\Data\TideGaugeCofferdam.db";
+        public static string DbFilePath { get => _dbFilepath; set => _dbFilepath = value + @"\TideGaugeCofferdam.db"; }
         private SQLiteConnection dbConnection;
         private readonly SQLiteCommand dbCommand = new SQLiteCommand();
        
@@ -68,7 +69,7 @@ namespace TCP_Client_TideMaster
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
+         
         void IDisposable.Dispose()
         {
             dbCommand.Dispose();

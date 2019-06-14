@@ -12,13 +12,21 @@ namespace TCP_Client_TideMaster
         SimpleTcpClient client;
         DateTime dateTime = DateTime.UtcNow;
         internal static string logfilename = DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture);
-        protected string Folderpath { get; set; } = @".\Data\TideGaugeCofferdam.db";
+        protected string Folderpath { get; set; } = @".\Data";
         public Form1()
         {
             InitializeComponent();
             tbRecive.Clear();
             Logger(DateTime.Now.ToString() + " Programm start" + Environment.NewLine);
             
+
+        }
+        private void CheckExistenceFolder()
+        {
+            if (!Directory.Exists(Folderpath))
+            {
+                Directory.CreateDirectory(Folderpath);
+            }
 
         }
         private void WhatsNetwork()
@@ -36,15 +44,17 @@ namespace TCP_Client_TideMaster
         }
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-           
-            //tbMeasurmentTime.Text = dateTime.ToString();
+
+            CheckExistenceFolder();
             switch (btnConnect.Text)
             {
                 case "Connect":
                     Connect();
+                    databaseFileSorceToolStripMenuItem.Visible = false;
                     break;
                 case "Disconnect":
                     Disconnect();
+                    databaseFileSorceToolStripMenuItem.Visible = true;
                     break;
             }
         }
@@ -128,7 +138,6 @@ namespace TCP_Client_TideMaster
         private void Disconnect()
         {
             btnConnect.Text = "Connect";
-            //tbIPAdress.ReadOnly = false;
             chbNetwork.Visible = true;
             chbSilentMode.Visible = true;
             client.Disconnect();
@@ -144,7 +153,6 @@ namespace TCP_Client_TideMaster
             try
             {
                 btnConnect.Text = "Disconnect";
-                //tbIPAdress.ReadOnly=true;
                 chbNetwork.Visible = false;
                 chbSilentMode.Visible = false;
                 client.Connect(tbIPAdress.Text, Convert.ToInt32(tbPort.Text));
@@ -186,12 +194,11 @@ namespace TCP_Client_TideMaster
             using (FolderBrowserDialog openFolder = new FolderBrowserDialog())
             {
                 openFolder.Description = "Select Directory...";
-                //openFolder.
                 openFolder.SelectedPath = Environment.CurrentDirectory;
                 DialogResult result = openFolder.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    Folderpath = openFolder.SelectedPath + @"\TideGaugeCofferdam.db";
+                    Folderpath = openFolder.SelectedPath;
                 }
                
                 
