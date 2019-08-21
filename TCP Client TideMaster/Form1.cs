@@ -1,9 +1,12 @@
 ﻿using SimpleTCP;
 using System;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
+using System.Net.Sockets;
 
 namespace TCP_Client_TideMaster
 {
@@ -11,7 +14,7 @@ namespace TCP_Client_TideMaster
     {
         SimpleTcpClient client;
         DateTime dateTime = DateTime.UtcNow;
-        internal static string logfilename = DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture);
+        internal static string logfilename = DateTime.Now.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         protected string Folderpath { get; set; } = @".\Data";
         public Form1()
         {
@@ -113,13 +116,17 @@ namespace TCP_Client_TideMaster
                     MessageBox.Show("Server not responding for a long time.\nConnection aborted", "Connection problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 case true:
-                    tbRecive.AppendText(DateTime.Now.ToString() + " Server not responding" + Environment.NewLine);
-                    Logger(DateTime.Now.ToString() + " Server not responding" + Environment.NewLine);
+                    tbRecive.AppendText(DateTime.Now.ToString() + " Server not responding. Reconnecting" + Environment.NewLine);
+                    Logger(DateTime.Now.ToString() + " Server not responding. Reconnecting" + Environment.NewLine);
+                    Disconnect();
+                    Connect();
                     break;
             }
            
 
         }
+
+        
 
         private void TmProgress_Tick(object sender, EventArgs e)
         {
@@ -152,10 +159,10 @@ namespace TCP_Client_TideMaster
         {
             try
             {
+                client.Connect(tbIPAdress.Text, Convert.ToInt32(tbPort.Text));
                 btnConnect.Text = "Disconnect";
                 chbNetwork.Visible = false;
                 chbSilentMode.Visible = false;
-                client.Connect(tbIPAdress.Text, Convert.ToInt32(tbPort.Text));
                 tmConnection.Enabled = true;
                 tmProgress.Enabled = true;
                 pbConnect.Maximum = 120;
@@ -164,10 +171,21 @@ namespace TCP_Client_TideMaster
                 Logger(DateTime.Now.ToString() + " Connected" + Environment.NewLine);
 
             }
+            catch (SocketException e)
+            {
+                if (e.ErrorCode==10065)
+                {
+                    tbRecive.AppendText(DateTime.Now.ToString() + " " + "Destination host is unreachable. Communication error" + " " + Environment.NewLine);
+                }
+                else
+                {
+                    tbRecive.AppendText(DateTime.Now.ToString() + " " + e + " " + Environment.NewLine);
+                }
+                
+            }
             catch (Exception e)
             {
                 tbRecive.AppendText(DateTime.Now.ToString() + " " + e.Message + " " + Environment.NewLine);
-               
             }
            
         }
@@ -177,6 +195,7 @@ namespace TCP_Client_TideMaster
            using (StreamWriter filestrim = new StreamWriter(path, true))
             {
                 filestrim.Write(Event);
+                filestrim.Dispose();
             }
         }
 
@@ -200,7 +219,7 @@ namespace TCP_Client_TideMaster
                 {
                     Folderpath = openFolder.SelectedPath;
                 }
-               
+                openFolder.Dispose();
                 
             }
         }
@@ -214,17 +233,46 @@ namespace TCP_Client_TideMaster
 
         private void ExportDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Calendar calendar = new Calendar();
-            calendar.ShowDialog();
-            string ChooseDay="";
-            //calendar.Dispose();
-            MessageBox.Show(ChooseDay);
-           /* using (DBConnector dbConnector = new DBConnector())
+
+
+            using (Calendar calendar = new Calendar())
             {
-               
-                dbConnector.Read();
+                DateTime[] boldedDates;
+                using (DBConnector dbConnector = new DBConnector())
+                {
+                    
+                    DBConnector.DbFilePath = Folderpath;
+                    dbConnector.GetDataRange();
+                    DataTable _dataRange = dbConnector.DataRange;
+                                        
+                    boldedDates = new DateTime[_dataRange.Rows.Count];
+                    
+                    for (int i = 0; i < _dataRange.Rows.Count; i++)
+                    {
+                        DataRow dataRow = _dataRange.Rows[i];
+                        string d= dataRow.Field<string>("DataTime");
+                        boldedDates[i] = DateTime.ParseExact(d,"yyyy-MM-dd", CultureInfo.InvariantCulture);
+                       
+
+                    }
+                   
+                    
+                    calendar.BDates(boldedDates);
+
+                    if (calendar.ShowDialog() == DialogResult.OK)
+                    {
+
+                        using (DBConnector dBConnector = new DBConnector())
+                        {
+                            dBConnector.Read(calendar.DataChoosed);
+
+                        }
+                        tbRecive.AppendText("Export done");
+                    }
+                   
+                }
                 
-            }*/
+            }
         }
     }
 }
