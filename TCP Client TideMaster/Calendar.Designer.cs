@@ -42,6 +42,7 @@
             this.mCalendar.MaxSelectionCount = 1;
             this.mCalendar.MinDate = new System.DateTime(2019, 6, 1, 0, 0, 0, 0);
             this.mCalendar.Name = "mCalendar";
+            this.mCalendar.ShowTodayCircle = false;
             this.mCalendar.TabIndex = 0;
             // 
             // btnOK
