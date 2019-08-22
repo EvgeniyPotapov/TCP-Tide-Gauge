@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TCP_Client_TideMaster
@@ -15,12 +8,21 @@ namespace TCP_Client_TideMaster
         public Calendar()
         {
             InitializeComponent();
-            mCalendar.DateChanged += mCalendar_DateChanged;
         }
-
-        private void mCalendar_DateChanged(object sender, DateRangeEventArgs e)
+        
+        string _datachoosed;
+        public string DataChoosed { get { return _datachoosed; } }
+        
+        public void BDates(DateTime[] BoldedDates)
         {
-            MessageBox.Show(mCalendar.SelectionRange.Start.ToShortDateString());
+            mCalendar.BoldedDates = BoldedDates;
+        }
+    
+        private void BtnOK_Click(object sender, EventArgs e)
+        {
+            string[] temp = mCalendar.SelectionRange.Start.ToString("s").Split('T');
+            _datachoosed = temp[0];
+            DialogResult = DialogResult.OK;
         }
     }
 }

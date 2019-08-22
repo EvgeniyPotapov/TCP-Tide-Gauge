@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbIPAdress = new System.Windows.Forms.TextBox();
@@ -49,59 +50,55 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.File = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseFileSorceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutProgrammToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 23);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(13, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.Size = new System.Drawing.Size(106, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Server Address";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 48);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(13, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.Size = new System.Drawing.Size(80, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Server Port";
             // 
             // tbIPAdress
             // 
-            this.tbIPAdress.Location = new System.Drawing.Point(94, 23);
-            this.tbIPAdress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbIPAdress.Location = new System.Drawing.Point(125, 28);
+            this.tbIPAdress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbIPAdress.Name = "tbIPAdress";
             this.tbIPAdress.ReadOnly = true;
-            this.tbIPAdress.Size = new System.Drawing.Size(102, 20);
+            this.tbIPAdress.Size = new System.Drawing.Size(135, 22);
             this.tbIPAdress.TabIndex = 2;
             this.tbIPAdress.Text = "109.188.128.115";
             // 
             // tbPort
             // 
-            this.tbPort.Location = new System.Drawing.Point(94, 48);
-            this.tbPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbPort.Location = new System.Drawing.Point(125, 59);
+            this.tbPort.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbPort.Name = "tbPort";
             this.tbPort.ReadOnly = true;
-            this.tbPort.Size = new System.Drawing.Size(49, 20);
+            this.tbPort.Size = new System.Drawing.Size(64, 22);
             this.tbPort.TabIndex = 3;
             this.tbPort.Text = "2291";
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(163, 48);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConnect.Location = new System.Drawing.Point(217, 59);
+            this.btnConnect.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(73, 19);
+            this.btnConnect.Size = new System.Drawing.Size(97, 23);
             this.btnConnect.TabIndex = 4;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -110,10 +107,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 76);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(13, 94);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(124, 13);
+            this.label3.Size = new System.Drawing.Size(166, 17);
             this.label3.TabIndex = 5;
             this.label3.Text = "Measurement time (UTC)";
             // 
@@ -121,10 +117,9 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(244, 76);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(325, 94);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.Size = new System.Drawing.Size(81, 17);
             this.label4.TabIndex = 6;
             this.label4.Text = "Tide Height";
             // 
@@ -132,21 +127,21 @@
             // 
             this.tbMeasurmentTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbMeasurmentTime.Location = new System.Drawing.Point(12, 93);
-            this.tbMeasurmentTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbMeasurmentTime.Location = new System.Drawing.Point(16, 114);
+            this.tbMeasurmentTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMeasurmentTime.Name = "tbMeasurmentTime";
             this.tbMeasurmentTime.ReadOnly = true;
-            this.tbMeasurmentTime.Size = new System.Drawing.Size(228, 20);
+            this.tbMeasurmentTime.Size = new System.Drawing.Size(303, 22);
             this.tbMeasurmentTime.TabIndex = 7;
             // 
             // tbTideHeight
             // 
             this.tbTideHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbTideHeight.Location = new System.Drawing.Point(246, 93);
-            this.tbTideHeight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbTideHeight.Location = new System.Drawing.Point(328, 114);
+            this.tbTideHeight.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbTideHeight.Name = "tbTideHeight";
             this.tbTideHeight.ReadOnly = true;
-            this.tbTideHeight.Size = new System.Drawing.Size(60, 20);
+            this.tbTideHeight.Size = new System.Drawing.Size(79, 22);
             this.tbTideHeight.TabIndex = 8;
             // 
             // tbRecive
@@ -155,12 +150,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbRecive.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.tbRecive.Location = new System.Drawing.Point(9, 162);
-            this.tbRecive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbRecive.Location = new System.Drawing.Point(12, 199);
+            this.tbRecive.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbRecive.Multiline = true;
             this.tbRecive.Name = "tbRecive";
             this.tbRecive.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbRecive.Size = new System.Drawing.Size(395, 295);
+            this.tbRecive.Size = new System.Drawing.Size(525, 362);
             this.tbRecive.TabIndex = 9;
             this.tbRecive.Text = "20.04.2019 8:40:41 $PVTM0,01,20042019,084000,-0.271,0.010,1,5.6,0*2a";
             this.tbRecive.UseWaitCursor = true;
@@ -174,11 +169,11 @@
             // 
             this.pbConnect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbConnect.Location = new System.Drawing.Point(9, 152);
-            this.pbConnect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbConnect.Location = new System.Drawing.Point(12, 187);
+            this.pbConnect.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pbConnect.Maximum = 60;
             this.pbConnect.Name = "pbConnect";
-            this.pbConnect.Size = new System.Drawing.Size(395, 11);
+            this.pbConnect.Size = new System.Drawing.Size(527, 14);
             this.pbConnect.Step = 1;
             this.pbConnect.TabIndex = 10;
             this.pbConnect.Visible = false;
@@ -191,10 +186,9 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 113);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(13, 139);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 13);
+            this.label5.Size = new System.Drawing.Size(135, 17);
             this.label5.TabIndex = 11;
             this.label5.Text = "Package time (UTC)";
             // 
@@ -202,11 +196,11 @@
             // 
             this.tbPackagetime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPackagetime.Location = new System.Drawing.Point(12, 129);
-            this.tbPackagetime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbPackagetime.Location = new System.Drawing.Point(16, 159);
+            this.tbPackagetime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbPackagetime.Name = "tbPackagetime";
             this.tbPackagetime.ReadOnly = true;
-            this.tbPackagetime.Size = new System.Drawing.Size(228, 20);
+            this.tbPackagetime.Size = new System.Drawing.Size(303, 22);
             this.tbPackagetime.TabIndex = 12;
             // 
             // chbSilentMode
@@ -215,10 +209,10 @@
             this.chbSilentMode.AutoSize = true;
             this.chbSilentMode.Checked = true;
             this.chbSilentMode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbSilentMode.Location = new System.Drawing.Point(247, 131);
-            this.chbSilentMode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chbSilentMode.Location = new System.Drawing.Point(333, 161);
+            this.chbSilentMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chbSilentMode.Name = "chbSilentMode";
-            this.chbSilentMode.Size = new System.Drawing.Size(81, 17);
+            this.chbSilentMode.Size = new System.Drawing.Size(104, 21);
             this.chbSilentMode.TabIndex = 13;
             this.chbSilentMode.Text = "Silent mode";
             this.chbSilentMode.UseVisualStyleBackColor = true;
@@ -226,9 +220,10 @@
             // chbNetwork
             // 
             this.chbNetwork.AutoSize = true;
-            this.chbNetwork.Location = new System.Drawing.Point(211, 25);
+            this.chbNetwork.Location = new System.Drawing.Point(281, 31);
+            this.chbNetwork.Margin = new System.Windows.Forms.Padding(4);
             this.chbNetwork.Name = "chbNetwork";
-            this.chbNetwork.Size = new System.Drawing.Size(95, 17);
+            this.chbNetwork.Size = new System.Drawing.Size(119, 21);
             this.chbNetwork.TabIndex = 14;
             this.chbNetwork.Text = "Local Network";
             this.chbNetwork.UseVisualStyleBackColor = true;
@@ -238,12 +233,11 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.File,
-            this.helpToolStripMenuItem});
+            this.File});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(413, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(551, 30);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -254,51 +248,37 @@
             this.exportDataToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.File.Name = "File";
-            this.File.Size = new System.Drawing.Size(37, 20);
+            this.File.Size = new System.Drawing.Size(46, 26);
             this.File.Text = "File";
             // 
             // databaseFileSorceToolStripMenuItem
             // 
             this.databaseFileSorceToolStripMenuItem.Name = "databaseFileSorceToolStripMenuItem";
-            this.databaseFileSorceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.databaseFileSorceToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
             this.databaseFileSorceToolStripMenuItem.Text = "Database file path";
             this.databaseFileSorceToolStripMenuItem.Click += new System.EventHandler(this.DatabaseFileSorceToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutProgrammToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutProgrammToolStripMenuItem
-            // 
-            this.aboutProgrammToolStripMenuItem.Name = "aboutProgrammToolStripMenuItem";
-            this.aboutProgrammToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.aboutProgrammToolStripMenuItem.Text = "About programm";
             // 
             // exportDataToolStripMenuItem
             // 
             this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
-            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
             this.exportDataToolStripMenuItem.Text = "Export data";
             this.exportDataToolStripMenuItem.Click += new System.EventHandler(this.ExportDataToolStripMenuItem_Click);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(413, 458);
+            this.ClientSize = new System.Drawing.Size(551, 562);
             this.Controls.Add(this.chbNetwork);
             this.Controls.Add(this.chbSilentMode);
             this.Controls.Add(this.tbPackagetime);
@@ -315,11 +295,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.MaximumSize = new System.Drawing.Size(500, 504);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximumSize = new System.Drawing.Size(661, 609);
             this.Name = "Form1";
-            this.Text = "Cofferdam Tide Gauge";
+            this.Text = "TCP Client TideMaster";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -352,8 +333,6 @@
         private System.Windows.Forms.ToolStripMenuItem File;
         private System.Windows.Forms.ToolStripMenuItem databaseFileSorceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutProgrammToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportDataToolStripMenuItem;
     }
 }
