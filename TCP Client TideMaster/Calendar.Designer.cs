@@ -72,6 +72,7 @@
             this.ShowInTaskbar = false;
             this.Text = "Choose a Day";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Calendar_FormClosed);
             this.ResumeLayout(false);
 
         }

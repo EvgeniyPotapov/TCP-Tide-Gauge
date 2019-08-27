@@ -23,6 +23,13 @@ namespace TCP_Client_TideMaster
             string[] temp = mCalendar.SelectionRange.Start.ToString("s").Split('T');
             _datachoosed = temp[0];
             DialogResult = DialogResult.OK;
+            Dispose();
+            
+        }
+
+        private void Calendar_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose();
         }
     }
 }

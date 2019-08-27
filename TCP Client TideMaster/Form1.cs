@@ -66,6 +66,7 @@ namespace TCP_Client_TideMaster
         {
             client.Disconnect();
             Logger(DateTime.Now.ToString() + " Programm close" + Environment.NewLine);
+            client.Dispose();
 
         }
 
@@ -179,13 +180,13 @@ namespace TCP_Client_TideMaster
                 }
                 else
                 {
-                    tbRecive.AppendText(DateTime.Now.ToString() + " " + e + " " + Environment.NewLine);
+                   MessageBox.Show(e.ToString(),"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
                 
             }
             catch (Exception e)
             {
-                tbRecive.AppendText(DateTime.Now.ToString() + " " + e.Message + " " + Environment.NewLine);
+                MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
         }
@@ -228,6 +229,7 @@ namespace TCP_Client_TideMaster
         {
             client.Disconnect();
             Logger(DateTime.Now.ToString() + " Programm close" + Environment.NewLine);
+            client.Dispose();
             ActiveForm.Dispose();
         }
 
