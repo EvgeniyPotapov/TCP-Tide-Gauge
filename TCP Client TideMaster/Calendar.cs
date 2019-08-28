@@ -9,27 +9,17 @@ namespace TCP_Client_TideMaster
         {
             InitializeComponent();
         }
-        
         string _datachoosed;
         public string DataChoosed { get { return _datachoosed; } }
-        
         public void BDates(DateTime[] BoldedDates)
         {
             mCalendar.BoldedDates = BoldedDates;
         }
-    
         private void BtnOK_Click(object sender, EventArgs e)
         {
             string[] temp = mCalendar.SelectionRange.Start.ToString("s").Split('T');
             _datachoosed = temp[0];
             DialogResult = DialogResult.OK;
-            Dispose();
-            
-        }
-
-        private void Calendar_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Dispose();
-        }
+        } 
     }
 }

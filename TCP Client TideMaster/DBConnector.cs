@@ -5,11 +5,9 @@ using System;
 using System.Data;
 using System.Linq;
 using System.Globalization;
-using System.Collections.Generic;
 
 namespace TCP_Client_TideMaster
 {
-   
     class DBConnector:IDisposable
     {
         private static string _dbFilepath = @".\Data\TideGaugeCofferdam.db";
@@ -17,7 +15,6 @@ namespace TCP_Client_TideMaster
         private SQLiteConnection dbConnection;
         private readonly SQLiteCommand dbCommand = new SQLiteCommand();
         public DataTable DataRange { get; private set; }
-       
         public void CreateFile()
         {
             SQLiteConnection.CreateFile(DbFilePath);
@@ -28,15 +25,12 @@ namespace TCP_Client_TideMaster
                 dbCommand.Connection = dbConnection;
                 dbCommand.CommandText = "CREATE TABLE IF NOT EXISTS Tide (id INTEGER PRIMARY KEY AUTOINCREMENT, DataTime TEXT, Level REAL)";
                 dbCommand.ExecuteNonQuery();
-
-
             }
             catch (SQLiteException e)
             {
                 MessageBox.Show("Error: " + e.Message);
             }
         }
-
         public void Connect()
         {
             if (!File.Exists(DbFilePath))
@@ -48,15 +42,11 @@ namespace TCP_Client_TideMaster
                 dbConnection = new SQLiteConnection("Data Source=" + DbFilePath + ";Version=3;");
                 dbConnection.Open();
                 dbCommand.Connection = dbConnection;
-                
-                         
-
             }
             catch (SQLiteException e)
             {
                 MessageBox.Show("Error: " + e.Message);
             }
-
         }
         public void Write(string DataTime, float Level)
         {
@@ -66,9 +56,7 @@ namespace TCP_Client_TideMaster
                 dbCommand.CommandText = "INSERT INTO Tide ('DataTime', 'Level') values ('" +
                     DataTime + "' , '" +
                     Level+ "')";
-
                 dbCommand.ExecuteNonQuery();
-                
             }
             catch (SQLiteException ex)
             {
@@ -83,8 +71,8 @@ namespace TCP_Client_TideMaster
                 using (DataTable dataTable = new DataTable())
                 {
                     string CommandText = string.Format("SELECT DataTime, Level FROM Tide WHERE DataTime BETWEEN date('{0}') AND date ('{0}','+1 days');",DataChoosed);
-                    SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(CommandText, dbConnection);
-                    dataAdapter.Fill(dataTable);
+                    using (SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(CommandText, dbConnection)) 
+                    { dataAdapter.Fill(dataTable); }
                     string exportFilePath = @".\Data\" + DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture) + "_Tide.csv";
                     StreamWriter FileExportCSV = new StreamWriter(exportFilePath);
                     using (FileExportCSV)
@@ -129,8 +117,5 @@ namespace TCP_Client_TideMaster
             dbCommand.Dispose();
             dbConnection.Dispose();
         }
-
-        
     }
-
 }

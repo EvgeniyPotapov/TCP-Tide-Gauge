@@ -3,26 +3,23 @@ using System;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
-using System.Threading;
-using System.Net.Sockets;
 
 namespace TCP_Client_TideMaster
 {
-    public partial class Form1 : Form
+    public partial class TCPClient : Form
     {
         SimpleTcpClient client;
         DateTime dateTime = DateTime.UtcNow;
         internal static string logfilename = DateTime.Now.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         protected string Folderpath { get; set; } = @".\Data";
-        public Form1()
+        public TCPClient()
         {
             InitializeComponent();
             tbRecive.Clear();
             Logger(DateTime.Now.ToString() + " Programm start" + Environment.NewLine);
-            
-
         }
         private void CheckExistenceFolder()
         {
@@ -30,10 +27,10 @@ namespace TCP_Client_TideMaster
             {
                 Directory.CreateDirectory(Folderpath);
             }
-
         }
         private void WhatsNetwork()
-        {switch (chbNetwork.Checked)
+        {
+            switch (chbNetwork.Checked)
             {
                 case true:
                     tbIPAdress.Text = "192.168.0.5";
@@ -41,13 +38,10 @@ namespace TCP_Client_TideMaster
                 case false:
                     tbIPAdress.Text = "109.188.128.115";
                     break;
-
             }
-
         }
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-
             CheckExistenceFolder();
             switch (btnConnect.Text)
             {
@@ -61,15 +55,12 @@ namespace TCP_Client_TideMaster
                     break;
             }
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             client.Disconnect();
             Logger(DateTime.Now.ToString() + " Programm close" + Environment.NewLine);
             client.Dispose();
-
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             client = new SimpleTcpClient
@@ -78,10 +69,8 @@ namespace TCP_Client_TideMaster
             };
             client.DataReceived += Client_DataReceived;
         }
-
         private void Client_DataReceived(object sender, SimpleTCP.Message e)
         {
-
             Invoke((MethodInvoker)delegate
                  {
                      tbPackagetime.Text = DateTime.UtcNow.ToString();
@@ -96,7 +85,6 @@ namespace TCP_Client_TideMaster
                      if (pbConnect.Maximum != 60)
                      {
                          pbConnect.Maximum = 60;
-
                      }
                      pbConnect.Value = 0;
                      pbConnect.Refresh();
@@ -107,7 +95,6 @@ namespace TCP_Client_TideMaster
                      }
                  });
         }
-
         private void Tm1_Tick(object sender, EventArgs e)
         {
             switch (chbSilentMode.Checked)
@@ -123,25 +110,18 @@ namespace TCP_Client_TideMaster
                     Connect();
                     break;
             }
-           
-
         }
-
-        
 
         private void TmProgress_Tick(object sender, EventArgs e)
         {
-            
             try
             {
-             pbConnect.Value++;
+                pbConnect.Value++;
             }
             catch (Exception)
             {
-
-               return;
+                return;
             }
-               
         }
         private void Disconnect()
         {
@@ -170,45 +150,40 @@ namespace TCP_Client_TideMaster
                 pbConnect.Visible = true;
                 tbRecive.AppendText(DateTime.Now.ToString() + " Connected" + Environment.NewLine);
                 Logger(DateTime.Now.ToString() + " Connected" + Environment.NewLine);
-
             }
             catch (SocketException e)
             {
-                if (e.ErrorCode==10065)
+                if (e.ErrorCode == 10065)
                 {
                     tbRecive.AppendText(DateTime.Now.ToString() + " " + "Destination host is unreachable. Communication error" + " " + Environment.NewLine);
                 }
                 else
                 {
-                   MessageBox.Show(e.ToString(),"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
         }
         private static void Logger(string Event)
         {
-           string path = logfilename + ".log";
-           using (StreamWriter filestrim = new StreamWriter(path, true))
+            string path = logfilename + ".log";
+            using (StreamWriter filestrim = new StreamWriter(path, true))
             {
                 filestrim.Write(Event);
                 filestrim.Dispose();
             }
         }
-
         private void ChbNetwork_CheckedChanged(object sender, EventArgs e)
         {
-            if (btnConnect.Text=="Disconnect")
+            if (btnConnect.Text == "Disconnect")
             {
                 Disconnect();
             }
             WhatsNetwork();
         }
-
         private void DatabaseFileSorceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog openFolder = new FolderBrowserDialog())
@@ -221,10 +196,8 @@ namespace TCP_Client_TideMaster
                     Folderpath = openFolder.SelectedPath;
                 }
                 openFolder.Dispose();
-                
             }
         }
-
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             client.Disconnect();
@@ -232,49 +205,34 @@ namespace TCP_Client_TideMaster
             client.Dispose();
             ActiveForm.Dispose();
         }
-
         private void ExportDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-
             using (Calendar calendar = new Calendar())
             {
-               DateTime[] boldedDates;
+                DateTime[] boldedDates;
                 using (DBConnector dbConnector = new DBConnector())
                 {
-                    
                     DBConnector.DbFilePath = Folderpath;
                     dbConnector.GetDataRange();
                     DataTable _dataRange = dbConnector.DataRange;
-                                        
                     boldedDates = new DateTime[_dataRange.Rows.Count];
-                    
                     for (int i = 0; i < _dataRange.Rows.Count; i++)
                     {
                         DataRow dataRow = _dataRange.Rows[i];
-                        string d= dataRow.Field<string>("DataTime");
-                        boldedDates[i] = DateTime.ParseExact(d,"yyyy-MM-dd", CultureInfo.InvariantCulture);
-                       
-
+                        string d = dataRow.Field<string>("DataTime");
+                        boldedDates[i] = DateTime.ParseExact(d, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                     }
-
-                    
-
                     calendar.BDates(boldedDates);
-
                     if (calendar.ShowDialog() == DialogResult.OK)
                     {
-
                         using (DBConnector dBConnector = new DBConnector())
                         {
                             dBConnector.Read(calendar.DataChoosed);
-
                         }
                         tbRecive.AppendText(DateTime.Now.ToString() + " Export done" + Environment.NewLine);
                     }
-                   
                 }
-                
+                calendar.Dispose();
             }
         }
     }
